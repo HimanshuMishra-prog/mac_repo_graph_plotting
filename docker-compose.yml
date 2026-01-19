@@ -1,0 +1,54 @@
+services:
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    volumes:
+      - ./prometheus-config:/etc/prometheus/
+    ports:
+      - "9090:9090"
+    networks:
+      - atu_net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    env_file:
+      - ./grafana.env
+    volumes:
+      - ./grafana_data:/var/lib/grafana
+      - /home/test/Documents/mac_log_grafana_loki/instance/:/flask_app_db:ro
+    ports:
+      - "3000:3000"
+    networks:
+      - atu_net
+    depends_on:
+      - prometheus
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    ports:
+      - "3100:3100"
+    networks:
+      - atu_net
+    volumes:
+      - ./loki-config/config.yml:/etc/loki/local-config.yaml
+      - ./loki-data:/loki
+  
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: atu_nginx
+    ports:
+      - "8080:80"       
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - grafana
+    networks:
+      - atu_net
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+networks:
+  atu_net:
+    driver: bridge

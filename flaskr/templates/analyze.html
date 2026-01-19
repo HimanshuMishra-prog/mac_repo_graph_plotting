@@ -1,0 +1,82 @@
+{% extends "Layout.html" %}
+
+{% block title %} Analyze {% endblock %}
+{% block name %} Analyze {% endblock %}
+
+{% block content %}
+<div class="panel" style="max-width:760px; margin: 0 auto;">
+  <div class="panel-title">
+    <i class="fas fa-upload"></i>&nbsp; Upload & Visualize
+  </div>
+
+  <div class="panel-sub" style="margin-bottom:12px; color:var(--muted);">
+    Select a structured log files by clicking the Visualize button to replay them.
+  </div>
+
+  <form id="analyzeForm" action="/analyze" method="POST" enctype="multipart/form-data" style="display:flex; flex-direction:column; gap:12px;">
+
+    <input id="file" name="file" type="file" multiple style="display:none" />
+
+    <input id="typeInput" name="type" type="hidden" value="dpp basic" />
+    <button id="visualizeBtn" type="button" class="btn btn-primary" style="
+          --bs-btn-bg: linear-gradient(180deg,#1f78d1,#1764b3);
+          background: linear-gradient(180deg,#1f78d1,#1764b3);
+          border: none;
+          color: white;
+          padding: 14px 22px;
+          font-size: 16px;
+          border-radius: 8px;
+          box-shadow: 0 4px 14px rgba(25,33,45,0.6);
+          display:flex;
+          align-items:center;
+          gap:10px;
+          justify-content:center;
+          ">
+      <i class="fas fa-plus" style="font-size:18px"></i>
+      <span style="font-weight:600">Visualize</span>
+    </button>
+
+    <div id="filePreview" style="color:var(--muted); font-size:14px; min-height:20px;">
+      No files selected.
+    </div>
+  </form>
+</div>
+<script>
+  (function(){
+    const fileInput = document.getElementById('file');
+    const visualizeBtn = document.getElementById('visualizeBtn');
+    const form = document.getElementById('analyzeForm');
+    const preview = document.getElementById('filePreview');
+
+    function updatePreview() {
+      if (!fileInput.files || fileInput.files.length === 0) {
+        preview.textContent = 'No files selected.';
+        return;
+      }
+      const names = [];
+      for (let i=0; i<fileInput.files.length && i<5; i++) {
+        names.push(fileInput.files[i].name);
+      }
+      let txt = names.join(', ');
+      if (fileInput.files.length > 5) txt += ` (+${fileInput.files.length - 5} more)`;
+      preview.textContent = txt;
+    }
+
+    visualizeBtn.addEventListener('click', function(e){
+      e.preventDefault();
+      fileInput.click();
+    });
+
+    fileInput.addEventListener('change', function(){
+      updatePreview();
+      if (fileInput.files && fileInput.files.length > 0) {
+        setTimeout(function(){
+          form.submit();
+        }, 250);
+      }
+    });
+
+    updatePreview();
+  })();
+</script>
+{% endblock %}

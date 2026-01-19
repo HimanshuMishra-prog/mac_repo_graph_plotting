@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Opening Grafana Dashboard</title>
+</head>
+<body>
+    <script>
+        (function() {
+            const clearGrafanaStorage = () => {
+            Object.keys(localStorage).forEach(key => {
+                if (key.includes('grafana')) {
+                    localStorage.removeItem(key);
+                }
+            });
+            Object.keys(sessionStorage).forEach(key => {
+                if (key.includes('grafana')) {
+                    sessionStorage.removeItem(key);
+                }
+            });
+
+            document.cookie.split(";").forEach(cookie => {
+                const eqPos = cookie.indexOf("=");
+                const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+                if (name.trim().includes('grafana')) {
+                    document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+                }
+            });
+        };
+
+        clearGrafanaStorage();
+        var url = "{{url|safe}}";
+        window.open(url, '_blank');
+        window.location.href = "{{return_url}}";
+    })();
+    </script>
+</body>
+</html>

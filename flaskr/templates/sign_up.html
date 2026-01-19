@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.14.0/css/all.css">
+
+  <link href="../static/css/toast_style.css" rel="stylesheet">
+  <link href="../static/css/login_style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="center-wrap">
+    <div class="card-auth shadow-sm">
+      <div class="brand">
+        <div class="logo" aria-hidden="true"></div>
+        <div>
+          <div class="title">Create account</div>
+          <div class="subtitle">Register to replay logs and view dashboards</div>
+        </div>
+      </div>
+
+      <!-- Server-side one-off error (legacy) -->
+      {% if error %}
+        <div class="alert alert-danger" role="alert">{{ error }}</div>
+      {% endif %}
+
+      <script id="flash-messages" type="application/json">
+         {{ get_flashed_messages(with_categories=true) | tojson | safe }}
+      </script>
+
+      <form action="/register" method="post" style="display:flex;flex-direction:column;gap:12px;">
+        <label class="form-label">Username</label>
+        <input name="username" id="username" class="form-control form-control-lg" placeholder="username" type="text" required>
+
+        <label class="form-label">Password</label>
+        <input name="password" id="password" class="form-control form-control-lg" placeholder="password" type="password" required>
+
+        <div style="display:flex;justify-content:flex-end; margin-top:6px;">
+          <button type="submit" class="btn btn-primary btn-lg">Create account</button>
+        </div>
+
+        <div class="note">Already have an account? <a href="/login" style="color:var(--accent); text-decoration:none">Sign in</a></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="toast-container" id="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script id="flash-messages" type="application/json">
+       {{ get_flashed_messages(with_categories=true) | tojson | safe }}
+    </script>
+    <script src="../static/js/toast_msg.js"></script>
+</body>
+</html>
