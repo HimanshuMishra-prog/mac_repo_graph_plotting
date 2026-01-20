@@ -16,11 +16,11 @@ class Config:
     
     #FOR GRAFANA
     AUTH_PROXY_SECRET = "secret_key"
-    GRAFANA_HOST = "http://107.99.46.66:8080"
-    GRAFANA_API_HOST = "http://107.99.46.66:3000"
+    GRAFANA_HOST = "http://127.0.0.1:8080"
+    GRAFANA_API_HOST = "http://127.0.0.1:3000"
     GRAFANA_DASH_UID = "07102025-srib-mac-default"
     GRAFANA_LOGIN_EXPIRY = 100000000000000
-    GRAFANA_SERVICE_TOKEN = "glsa_P6EDMcKDKVpTrWqF63UlpaMt0q7pbRjg_c7acd895" 
+    GRAFANA_SERVICE_TOKEN = "glsa_ItxFhZLg78JDDHB7x2vjnwZNwbwcRKMp_7aef38cb" 
     GRAFANA_ADMIN_USER = "admin" 
     GRAFANA_ADMIN_PASSWORD = "admin" 
     

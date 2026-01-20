@@ -16,7 +16,7 @@ def create_grafana_user_if_not_exists(username):
     
     try:
         headers = {
-            'Authorization': f'Bearer {app_obj.config.get("GRAFANA_SERVICE_TOKEN", "glsa_P6EDMcKDKVpTrWqF63UlpaMt0q7pbRjg_c7acd895")}',
+            'Authorization': f'Bearer {app_obj.config.get("GRAFANA_SERVICE_TOKEN", "glsa_ItxFhZLg78JDDHB7x2vjnwZNwbwcRKMp_7aef38cb")}',
             'Content-Type': 'application/json'
         }
         

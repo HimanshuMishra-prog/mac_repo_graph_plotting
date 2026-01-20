@@ -42,7 +42,7 @@
                 </td>
                 <td>
                 <div class="d-flex gap-2 align-items-center">
-                    <form id="analyze-form-{{ job.sno }}" action='/jobs' method="POST">
+                    <form id="analyze-form-{{ job.sno }}" action='/jobs' method="POST" target="_blank">
                     <input type="hidden" name="username" value="{{ job.username }}">
                     <input type="hidden" name="SNo" value="{{ job.sno }}">
                     <button type="submit" class="btn btn-sm btn-success btn-compact" name="analyze">

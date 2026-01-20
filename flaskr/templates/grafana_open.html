@@ -3,7 +3,7 @@
 <head>
     <title>Opening Grafana Dashboard</title>
 </head>
-<body>
+<body>  
     <script>
         (function() {
             const clearGrafanaStorage = () => {
@@ -29,8 +29,7 @@
 
         clearGrafanaStorage();
         var url = "{{url|safe}}";
-        window.open(url, '_blank');
-        window.location.href = "{{return_url}}";
+        window.location.href = "{{ url | safe }}";
     })();
     </script>
 </body>
